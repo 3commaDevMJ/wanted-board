@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { BoardModule } from './board/board.module';
+import { BoardModule } from './board/module/board.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CommentModule } from './comment/module/comment.module';
 
 @Module({
   imports: [
@@ -20,8 +21,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'board',
     }),
     BoardModule,
+    CommentModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}

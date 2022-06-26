@@ -6,11 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
-import { BoardService } from './board.service';
+import { BoardService } from '../service/board.service';
 
-import { UpdateBoardDto } from './dto/update-board.dto';
-import { CreateBoardDto } from './dto/create-board.dto';
+import { UpdateBoardDto } from '../dto/update-board.dto';
+import { CreateBoardDto } from '../dto/create-board.dto';
+import { FindBoardDto } from '../dto/find-board.dto';
 
 @Controller('board')
 export class BoardController {
@@ -24,14 +26,8 @@ export class BoardController {
 
   // 게시판 조회.
   @Get()
-  findAll() {
-    return this.boardService.findAll();
-  }
-
-  // 게시판 조건 조회.
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boardService.findOne(+id);
+  findBoard(@Query() findBoardDto: FindBoardDto) {
+    return this.boardService.findBoard(findBoardDto);
   }
 
   // 게시판 수정.
@@ -42,7 +38,7 @@ export class BoardController {
 
   // 게시판 삭제.
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.boardService.remove(+id);
+  remove(@Param('id') id: string, @Query('password') password: string) {
+    return this.boardService.remove(+id, password);
   }
 }
