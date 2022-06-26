@@ -6,18 +6,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from '../entities/board.entity';
 import { Pagination } from '../../lib/paginate';
 import { FindBoardDto } from '../dto/find-board.dto';
-import { Like } from 'typeorm';
 import { checkPw } from '../../lib/util/check.data';
+import { KeywordService } from '../../keyword/service/keyword.service';
 
 @Injectable()
 export class BoardService {
   constructor(
     @InjectRepository(BoardRepository)
     private boardRepository: BoardRepository,
+    private keywordService: KeywordService,
   ) {}
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-    return this.boardRepository.createBoard(createBoardDto);
+    const board = await this.boardRepository.createBoard(createBoardDto);
+
+    this.keywordService.sendAlarm(`${board.title} ${board.content}`);
+
+    return board;
   }
 
   async findBoard(findBoardDto: FindBoardDto): Promise<Pagination<Board>> {
