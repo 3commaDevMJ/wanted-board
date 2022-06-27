@@ -4,7 +4,7 @@ import { FindBoardDto } from '../dto/find-board.dto';
 import { Pagination } from '../../lib/paginate';
 import { UpdateBoardDto } from '../dto/update-board.dto';
 
-export interface BoardInterface{
+export interface BoardInterface {
   createBoard(createBoardDto: CreateBoardDto): Promise<Board>;
 
   findBoard(findBoardDto: FindBoardDto): Promise<Pagination<Board>>;

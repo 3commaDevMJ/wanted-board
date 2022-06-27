@@ -23,14 +23,19 @@ export class CommentService implements CommentInterface {
     if (!board) {
       throw new BadRequestException('해당 게시물을 찾을 수 없습니다.');
     }
-    //groupId로 원댓글을 찾고 없다면 에러.
-    const comment = await this.commentRepository.findOne(
-      createCommentDto.groupId,
-    );
-    if (!comment) {
-      throw new BadRequestException('원 댓글을 찾을 수 없습니다.');
-    } else {
+
+    if (createCommentDto.groupId) {
+      //groupId로 원댓글을 찾고 없다면 에러.
+      const comment = await this.commentRepository.findCommentByGroupId(
+        createCommentDto.boardId,
+        createCommentDto.groupId,
+      );
+      if (comment.length < 1) {
+        throw new BadRequestException('원 댓글을 찾을 수 없습니다.');
+      }
       createCommentDto.depth = 1;
+    } else {
+      createCommentDto.depth = 0;
     }
 
     const resultComment = await this.commentRepository.createComment(

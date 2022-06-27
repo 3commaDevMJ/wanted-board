@@ -14,6 +14,7 @@ export class KeywordService implements KeywordInterface {
     const users = await this.getUsers(keywordContent);
 
     // 추출한 유저로 알림 전송.
+    console.log(users);
   }
 
   async getUsers(keywordContent: string) {

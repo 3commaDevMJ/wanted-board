@@ -11,16 +11,26 @@ export class CommentRepository extends Repository<Comment> {
     return await this.save(comment);
   }
 
+  async findCommentByGroupId(boardId: number, groupId: number) {
+    return await this.createQueryBuilder()
+      .select('id')
+      .where('depth =0 and id = (:groupId) and boardId = (:boardId)', {
+        boardId,
+        groupId,
+      })
+      .getRawMany();
+  }
+
   async findComment(findCommentDto: FindCommentDto) {
     const { take, page, boardId } = findCommentDto;
-    const [result, total] = await this.findAndCount({
-      select: ['id', 'comment', 'userName', 'createdAt', 'updatedAt'],
-      take,
-      where: { boardId },
-      skip: take * (page - 1),
-      order: { createdAt: 'DESC' },
-    });
 
+    const [result, total] = await this.createQueryBuilder()
+      .select()
+      .take(take)
+      .skip(take * (page - 1))
+      .where('boardId = (:boardId)', { boardId })
+      .orderBy('IF((depth=0),id,groupId)')
+      .getManyAndCount();
     return new Pagination<Comment>({
       result,
       total,

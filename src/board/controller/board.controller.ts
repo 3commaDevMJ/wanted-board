@@ -35,13 +35,13 @@ export class BoardController {
 
   // 게시판 수정.
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardService.update(+id, updateBoardDto);
+  update(@Param('id') id: number, @Body() updateBoardDto: UpdateBoardDto) {
+    return this.boardService.update(id, updateBoardDto);
   }
 
   // 게시판 삭제.
   @Delete(':id')
-  remove(@Param('id') id: string, @Query('password') password: string) {
-    return this.boardService.remove(+id, password);
+  remove(@Param('id') id: number, @Query('password') password: string) {
+    return this.boardService.remove(id, password);
   }
 }
