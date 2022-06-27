@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateBoardDto } from '../dto/create-board.dto';
 import { UpdateBoardDto } from '../dto/update-board.dto';
 import { BoardRepository } from '../repository/board.repository';
@@ -8,13 +8,15 @@ import { Pagination } from '../../lib/paginate';
 import { FindBoardDto } from '../dto/find-board.dto';
 import { checkPw } from '../../lib/util/check.data';
 import { KeywordService } from '../../keyword/service/keyword.service';
+import { BoardInterface } from '../interface/board.interface';
+import { KeywordInterface } from '../../keyword/interface/keyword.interface';
 
 @Injectable()
-export class BoardService {
+export class BoardService implements BoardInterface{
   constructor(
     @InjectRepository(BoardRepository)
     private boardRepository: BoardRepository,
-    private keywordService: KeywordService,
+    @Inject('KeywordInterface')private keywordService: KeywordInterface,
   ) {}
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {

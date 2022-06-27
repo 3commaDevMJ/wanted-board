@@ -4,7 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { KeywordRepository } from '../repository/keyword.repository';
 
 @Module({
-  providers: [KeywordService],
+  providers: [
+    {
+      provide:'KeywordInterface',
+      useClass: KeywordService
+    }
+  ],
   imports: [TypeOrmModule.forFeature([KeywordRepository])],
+  exports:['KeywordInterface']
 })
 export class KeywordModule {}

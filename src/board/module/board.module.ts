@@ -4,10 +4,16 @@ import { BoardController } from '../controller/board.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardRepository } from '../repository/board.repository';
 import { KeywordModule } from '../../keyword/module/keyword.module';
+import { BoardInterface } from '../interface/board.interface';
 
 @Module({
   controllers: [BoardController],
-  providers: [BoardService],
+  providers: [
+    {
+      provide:'BoardInterface',
+      useClass:BoardService
+    }
+    ],
   imports: [KeywordModule, TypeOrmModule.forFeature([BoardRepository])],
 })
 export class BoardModule {}
