@@ -37,9 +37,8 @@ export class CommentService implements CommentInterface {
       createCommentDto,
     );
 
-    // board가 있을시에만 알림 전송.
-    if (resultComment)
-      this.keywordService.sendAlarm(`${board.title} ${board.content}`);
+    // 코멘트가 성공적으로 등록됬을시에만 있을시에만 알림 전송.
+    if (resultComment) this.keywordService.sendAlarm(resultComment.comment);
 
     return resultComment;
   }
