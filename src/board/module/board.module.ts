@@ -10,10 +10,10 @@ import { BoardInterface } from '../interface/board.interface';
   controllers: [BoardController],
   providers: [
     {
-      provide:'BoardInterface',
-      useClass:BoardService
-    }
-    ],
+      provide: 'BoardInterface',
+      useClass: BoardService,
+    },
+  ],
   imports: [KeywordModule, TypeOrmModule.forFeature([BoardRepository])],
 })
 export class BoardModule {}

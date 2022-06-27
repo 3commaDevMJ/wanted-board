@@ -6,9 +6,9 @@ import {
   Patch,
   Param,
   Delete,
-  Query, Inject,
+  Query,
+  Inject,
 } from '@nestjs/common';
-import { BoardService } from '../service/board.service';
 
 import { UpdateBoardDto } from '../dto/update-board.dto';
 import { CreateBoardDto } from '../dto/create-board.dto';
@@ -17,7 +17,9 @@ import { BoardInterface } from '../interface/board.interface';
 
 @Controller('board')
 export class BoardController {
-  constructor(@Inject('BoardInterface')private readonly boardService: BoardInterface) {}
+  constructor(
+    @Inject('BoardInterface') private readonly boardService: BoardInterface,
+  ) {}
 
   // 게시판 작성.
   @Post()

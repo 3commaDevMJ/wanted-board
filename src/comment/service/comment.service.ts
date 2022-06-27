@@ -1,19 +1,21 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommentRepository } from '../repository/comment.repository';
 import { BoardRepository } from '../../board/repository/board.repository';
 import { FindCommentDto } from '../dto/find-comment.dto';
-import { Pagination } from '../../lib/paginate';
-import { Comment } from '../entities/comment.entity';
+import { CommentInterface } from '../interface/comment.interface';
+import { KeywordInterface } from '../../keyword/interface/keyword.interface';
 
 @Injectable()
-export class CommentService {
+export class CommentService implements CommentInterface {
   constructor(
     @InjectRepository(CommentRepository)
-    private commentRepository: CommentRepository,
+    private readonly commentRepository: CommentRepository,
     @InjectRepository(BoardRepository)
-    private boardRepository: BoardRepository,
+    private readonly boardRepository: BoardRepository,
+    @Inject('KeywordInterface')
+    private readonly keywordService: KeywordInterface,
   ) {}
 
   async createComment(createCommentDto: CreateCommentDto) {
@@ -31,7 +33,15 @@ export class CommentService {
       createCommentDto.depth = 1;
     }
 
-    return await this.commentRepository.createComment(createCommentDto);
+    const resultComment = await this.commentRepository.createComment(
+      createCommentDto,
+    );
+
+    // board가 있을시에만 알림 전송.
+    if (resultComment)
+      this.keywordService.sendAlarm(`${board.title} ${board.content}`);
+
+    return resultComment;
   }
 
   async findComment(findCommentDto: FindCommentDto) {

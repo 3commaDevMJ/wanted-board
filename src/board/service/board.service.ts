@@ -7,22 +7,23 @@ import { Board } from '../entities/board.entity';
 import { Pagination } from '../../lib/paginate';
 import { FindBoardDto } from '../dto/find-board.dto';
 import { checkPw } from '../../lib/util/check.data';
-import { KeywordService } from '../../keyword/service/keyword.service';
 import { BoardInterface } from '../interface/board.interface';
 import { KeywordInterface } from '../../keyword/interface/keyword.interface';
 
 @Injectable()
-export class BoardService implements BoardInterface{
+export class BoardService implements BoardInterface {
   constructor(
     @InjectRepository(BoardRepository)
-    private boardRepository: BoardRepository,
-    @Inject('KeywordInterface')private keywordService: KeywordInterface,
+    private readonly boardRepository: BoardRepository,
+    @Inject('KeywordInterface')
+    private readonly keywordService: KeywordInterface,
   ) {}
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
     const board = await this.boardRepository.createBoard(createBoardDto);
 
-    this.keywordService.sendAlarm(`${board.title} ${board.content}`);
+    // board가 있을시에만 알림 전송.
+    if (board) this.keywordService.sendAlarm(`${board.title} ${board.content}`);
 
     return board;
   }

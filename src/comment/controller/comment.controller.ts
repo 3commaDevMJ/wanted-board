@@ -1,11 +1,13 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common';
 import { CreateCommentDto } from '../dto/create-comment.dto';
-import { CommentService } from '../service/comment.service';
 import { FindCommentDto } from '../dto/find-comment.dto';
+import { CommentInterface } from '../interface/comment.interface';
 
 @Controller('comment')
 export class CommentController {
-  constructor(private commentService: CommentService) {}
+  constructor(
+    @Inject('CommentInterface') private commentService: CommentInterface,
+  ) {}
   // 댓글 생성.
   @Post()
   async createComment(@Body() createCommentDto: CreateCommentDto) {

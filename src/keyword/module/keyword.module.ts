@@ -6,11 +6,11 @@ import { KeywordRepository } from '../repository/keyword.repository';
 @Module({
   providers: [
     {
-      provide:'KeywordInterface',
-      useClass: KeywordService
-    }
+      provide: 'KeywordInterface',
+      useClass: KeywordService,
+    },
   ],
   imports: [TypeOrmModule.forFeature([KeywordRepository])],
-  exports:['KeywordInterface']
+  exports: ['KeywordInterface'],
 })
 export class KeywordModule {}
