@@ -2,7 +2,7 @@
 # 댓글 기능이 있는 익명 게시판 및 키워드 알림 기능 구현.
 
 ## 환경
-```aidl
+```text
 nodejs 18.3.0
 Mysql 8.0.29 
 ```
@@ -27,7 +27,7 @@ $ npm run start:dev
 
 ## 구현 기능
 
-```text
+```yml
 # 게시글 목록 API
 @GET 
 localhost:3000/board?take=&page=&title=&userName=
@@ -87,7 +87,7 @@ Body
 
 ```
 ## 테이블 생성 스크립트
-```bigquery
+```sql
 -- Board 데이터베이스 생성 ( charset = utf8mb4 )
 CREATE DATABASE `board` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
