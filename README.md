@@ -8,7 +8,7 @@ Mysql 8.0.29
 ```
 ## 설치 방법
 
-```shell
+```sh
 $ npm install
 
 # typeorm 버전문제로 설치 안될 시
@@ -17,7 +17,7 @@ $ npm i typeorm@0.2.41 @nestjs/typeorm@8.0.2 mysql2
 
 ## 실행 방법
 
-```shell
+```sh
 # development
 $ npm run start
 
