@@ -35,6 +35,7 @@ export class BoardService implements BoardInterface {
   async update(id: number, updateBoardDto: UpdateBoardDto) {
     const board = await this.boardRepository.findOne(id);
 
+    // 이후 자주 쓰이는 에러에 대해서 공통모듈에서 처리될수있도록 하는게 좋을듯..
     if (!board) {
       throw new BadRequestException('해당 게시물을 찾을 수 없습니다.');
     }

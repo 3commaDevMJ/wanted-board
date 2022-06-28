@@ -10,6 +10,7 @@ import { CommentModule } from './comment/module/comment.module';
       envFilePath: [`${__dirname}/config/env/.${process.env.NODE_ENV}.env`],
       isGlobal: true,
     }),
+
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',

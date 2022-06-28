@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { KeywordRepository } from '../repository/keyword.repository';
 import { KeywordInterface } from '../interface/keyword.interface';
@@ -11,10 +11,15 @@ export class KeywordService implements KeywordInterface {
   ) {}
 
   async sendAlarm(keywordContent: string) {
-    const users = await this.getUsers(keywordContent);
+    try {
+      const users = await this.getUsers(keywordContent);
 
-    // 추출한 유저로 알림 전송.
-    console.log(users);
+      // 테스트 위해 catch로 전달.
+      throw {};
+    } catch (err) {
+      console.log(err);
+      console.log('에러가 나더라도 등록기능에는 문제가 없어야 함.');
+    }
   }
 
   async getUsers(keywordContent: string) {
