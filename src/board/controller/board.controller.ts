@@ -15,7 +15,7 @@ import { CreateBoardDto } from '../dto/create-board.dto';
 import { FindBoardDto } from '../dto/find-board.dto';
 import { BoardInterface } from '../interface/board.interface';
 
-@Controller('board')
+@Controller('boards')
 export class BoardController {
   constructor(
     @Inject('BoardInterface') private readonly boardService: BoardInterface,

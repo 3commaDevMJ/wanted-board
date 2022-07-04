@@ -22,12 +22,12 @@ export class CommentRepository extends Repository<Comment> {
   }
 
   async findComment(findCommentDto: FindCommentDto) {
-    const { take, page, boardId } = findCommentDto;
+    const { limit, offset, boardId } = findCommentDto;
 
     const [result, total] = await this.createQueryBuilder()
       .select()
-      .take(take)
-      .skip(take * (page - 1))
+      .take(limit)
+      .skip(limit * (offset - 1))
       .where('boardId = (:boardId)', { boardId })
       .orderBy('IF((depth=0),id,groupId)')
       .getManyAndCount();

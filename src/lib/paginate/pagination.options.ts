@@ -1,4 +1,4 @@
 export abstract class PaginationOptions {
-  take: number;
-  page: number;
+  limit: number;
+  offset: number;
 }

@@ -3,7 +3,7 @@ import { CreateCommentDto } from '../dto/create-comment.dto';
 import { FindCommentDto } from '../dto/find-comment.dto';
 import { CommentInterface } from '../interface/comment.interface';
 
-@Controller('comment')
+@Controller('comments')
 export class CommentController {
   constructor(
     @Inject('CommentInterface') private commentService: CommentInterface,

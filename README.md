@@ -30,10 +30,10 @@ $ npm run start:dev
 ```yml
 # 게시글 목록 API
 @GET 
-localhost:3000/board?take=&page=&title=&userName=
+localhost:3000/board?limit=&offset=&title=&userName=
 Query 
-- take : 불러올 게시물 수
-- page : 불러올 페이지 번호
+- limit : 불러올 게시물 수
+- offset : 불러올 페이지 번호
 - title : 조건에 담을 게시물 제목 (옵션)
 - userName : 조건에 담을 유저이름 (옵션)
 
@@ -67,10 +67,10 @@ Query
 
 # 댓글 목록 API
 @GET
-localhost:3000/comment?take=&page=
+localhost:3000/comment?limit=&offset=
 Query 
-- take : 불러올 게시물 수
-- page : 불러올 페이지 번호
+- limit : 불러올 게시물 수
+- offset : 불러올 페이지 번호
 
 # 댓글 작성 API
 @POST

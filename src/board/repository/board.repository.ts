@@ -13,7 +13,7 @@ export class BoardRepository extends Repository<Board> {
   }
 
   async findBoard(findBoardDto: FindBoardDto) {
-    const { take, page, title, userName } = findBoardDto;
+    const { limit, offset, title, userName } = findBoardDto;
     const where = {};
 
     // 유틸로 빼기
@@ -23,8 +23,8 @@ export class BoardRepository extends Repository<Board> {
     const [result, total] = await this.findAndCount({
       select: ['id', 'title', 'userName', 'content', 'createdAt', 'updatedAt'],
       where,
-      take,
-      skip: take * (page - 1),
+      take: limit,
+      skip: limit * (offset - 1),
       order: { createdAt: 'DESC' },
     });
     return new Pagination<Board>({

@@ -10,9 +10,7 @@ import { KeywordInterface } from '../../keyword/interface/keyword.interface';
 @Injectable()
 export class CommentService implements CommentInterface {
   constructor(
-    @InjectRepository(CommentRepository)
     private readonly commentRepository: CommentRepository,
-    @InjectRepository(BoardRepository)
     private readonly boardRepository: BoardRepository,
     @Inject('KeywordInterface')
     private readonly keywordService: KeywordInterface,

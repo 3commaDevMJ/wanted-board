@@ -6,7 +6,6 @@ import { KeywordInterface } from '../interface/keyword.interface';
 @Injectable()
 export class KeywordService implements KeywordInterface {
   constructor(
-    @InjectRepository(KeywordRepository)
     private keywordRepository: KeywordRepository,
   ) {}
 

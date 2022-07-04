@@ -13,7 +13,6 @@ import { KeywordInterface } from '../../keyword/interface/keyword.interface';
 @Injectable()
 export class BoardService implements BoardInterface {
   constructor(
-    @InjectRepository(BoardRepository)
     private readonly boardRepository: BoardRepository,
     @Inject('KeywordInterface')
     private readonly keywordService: KeywordInterface,
